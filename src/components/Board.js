@@ -77,7 +77,7 @@
 // export default Board
 
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function Board() {
 
@@ -86,6 +86,12 @@ export default function Board() {
     // [[1][2][3][4][5]],
     // [[1][2][3][4][5]],
     // ]
+
+    const [grid, setGrid] = useState([]);
+
+    useEffect(() => {
+        setGrid(setBoard(5,5,5))
+    },[])
 
     function setBoard(numRows,numCols, mines){
         const boardArr = []
@@ -97,18 +103,92 @@ export default function Board() {
             boardArr.push(rowArr);
         }
 
-        for(i=0;i<mines;i++){
-            console.log('mines')
+        for(let i=0;i<mines;i++){
+            let rowIndex = Math.floor(Math.random() * boardArr[0].length);
+            let colIndex = Math.floor(Math.random() * boardArr[0].length);
+            console.log('position',rowIndex, colIndex)
+            if(boardArr){
+                while(boardArr[rowIndex][colIndex] === 'X'){
+                    colIndex++
+                    if(colIndex > boardArr[0].length){
+                        colIndex = 0;
+                    }
+                }
+            }
+            
+            boardArr[rowIndex][colIndex] = 'X';
         }
+        let num = 0
+        const nonBombs = numRows * numCols - mines;
+        // for(let i =0;i<nonBombs;i++){
+        //     // Top left
+        //     if(boardArr[0][0+1] === 'X'){
+        //         num++
+        //     }
+        //     if(boardArr[0+1][0] === 'X'){
+        //         num++
+        //     }
+        //     if(boardArr[0+1][0+1] === 'X'){
+        //         num++
+        //     }
+        // }
+        for(let i=0;i<numCols ;i++){
+            for(let j=0; j<numRows;j++){
+                if(boardArr[i][j] !== 'X'){
+                    // Top Left
+                    if(boardArr[i+1][j] === 'X'){
+                        num++
+                    }
+                    if(boardArr[i+1][j+1] === 'X'){
+                        num++
+                    }
+                    if(boardArr[i][j+1] === 'X'){
+                        num++
+                    }
+                    // Bot Right
+                    if(boardArr[i-1][j] === 'X'){
+                        num++
+                    }
+                    if(boardArr[i-1][j-1] === 'X'){
+                        num++
+                    }
+                    if(boardArr[i][j-1] === 'X'){
+                        num++
+                    }
+                    // Top right
+                    if(boardArr[i-1][j+1] === 'X'){
+                        num++
+                    }
+                    if(boardArr[i+1][j-1] === 'X'){
+                        num++
+                    }
+                }
+                boardArr[i][j] = num
+            }
+        }
+
 
         return boardArr
     }
    
-    console.log(setBoard(5,5,10))
+    
 
     return (
         <div>
-            
+            <h1>Board</h1>
+            {grid.map((singleRow)=> {
+                return (
+                    <div className='board'>
+                        {singleRow.map((singleBlock) => {
+                            return (
+                                <div className='rowsBoard'>
+                                    {singleBlock}
+                                </div>
+                                )
+                        })}
+                    </div>
+                )
+            })}
         </div>
     )
 }

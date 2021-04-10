@@ -4,6 +4,7 @@
 
 .board{
   display: flex;
+  justify-content: center;
 }
 
 .rowsBoard{
