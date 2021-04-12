@@ -136,16 +136,31 @@ export default function Board() {
             for(let j=0; j<numRows;j++){
                 if(boardArr[i][j] !== 'X'){
                     // Top Left
-                    if(boardArr[i+1][j] === 'X'){
-                        num++
+                    if(boardArr[0][0]){
+                        if(boardArr[i+1][j] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i+1][j+1] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i][j+1] === 'X'){
+                            num++
+                        }
                     }
-                    if(boardArr[i+1][j+1] === 'X'){
-                        num++
-                    }
-                    if(boardArr[i][j+1] === 'X'){
-                        num++
-                    }
+                    
                     // Bot Right
+
+                    if(boardArr[numRows-1][numCols-1]){
+                        if(boardArr[i+1][j] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i+1][j+1] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i][j+1] === 'X'){
+                            num++
+                        }
+                    }
                     if(boardArr[i-1][j] === 'X'){
                         num++
                     }
