@@ -300,43 +300,10 @@ export default function Board() {
                             num++
                         }
                     }
-
-                    
-
-
-                    // // Top Row
-                    // if(boardArr[0][!0]){
-                    //     if(boardArr[i+1][j] === 'X'){
-                    //         num++
-                    //     }
-                    //     if(boardArr[i+1][j+1] === 'X'){
-                    //         num++
-                    //     }
-                    //     if(boardArr[i][j+1] === 'X'){
-                    //         num++
-                    //     }
-                    // }
-
-                   // Bot Row
-
-                //    if(i === numRows-1 && j !== 0 && j!== numCols-1){
-                //     if(boardArr[i-1][j] === 'X'){
-                //         num++
-                //     }
-                //     if(boardArr[i-1][j-1] === 'X'){
-                //         num++
-                //     }
-                //     if(boardArr[i][j-1] === 'X'){
-                //         num++
-                //     }
-                // }
                 boardArr[i][j] = num
                 }
-                
             }
         }
-
-
         return boardArr
     }
    
