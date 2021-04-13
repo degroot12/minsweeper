@@ -90,27 +90,29 @@ export default function Board() {
     const [grid, setGrid] = useState([]);
 
     useEffect(() => {
-        setGrid(setBoard(5,5,5))
+        setGrid(setBoard(10,5,15))
     },[])
 
-    function setBoard(numRows,numCols, mines){
+    function setBoard(numCols,numRows, mines){
         const boardArr = []
-        for(let i=0;i<numCols ;i++){
+        for(let i=0;i<numRows ;i++){
             let rowArr = [];
-            for(let j=0; j<numRows;j++){
+            for(let j=0; j<numCols;j++){
                 rowArr.push('')
             }
             boardArr.push(rowArr);
         }
 
         for(let i=0;i<mines;i++){
-            let rowIndex = Math.floor(Math.random() * boardArr[0].length);
+            let rowIndex = Math.floor(Math.random() * boardArr.length);
             let colIndex = Math.floor(Math.random() * boardArr[0].length);
             console.log('position',rowIndex, colIndex)
             if(boardArr){
+                //console.log('boardArr[0] length',boardArr[0].length)
                 while(boardArr[rowIndex][colIndex] === 'X'){
                     colIndex++
-                    if(colIndex > boardArr[0].length){
+                    
+                    if(colIndex >= boardArr[0].length){
                         colIndex = 0;
                     }
                 }
@@ -118,7 +120,7 @@ export default function Board() {
             
             boardArr[rowIndex][colIndex] = 'X';
         }
-        let num = 0
+        
         const nonBombs = numRows * numCols - mines;
         // for(let i =0;i<nonBombs;i++){
         //     // Top left
@@ -132,53 +134,205 @@ export default function Board() {
         //         num++
         //     }
         // }
-        for(let i=0;i<numCols ;i++){
-            for(let j=0; j<numRows;j++){
-                if(boardArr[i][j] !== 'X'){
-                    // Top Left
-                    if(boardArr[0][0]){
-                        if(boardArr[i+1][j] === 'X'){
-                            num++
-                        }
-                        if(boardArr[i+1][j+1] === 'X'){
-                            num++
-                        }
-                        if(boardArr[i][j+1] === 'X'){
-                            num++
-                        }
-                    }
-                    
-                    // Bot Right
 
-                    if(boardArr[numRows-1][numCols-1]){
-                        if(boardArr[i+1][j] === 'X'){
+
+        for(let i=0;i<numRows ;i++){
+            for(let j=0; j<numCols;j++){
+                if(boardArr[i][j] !== 'X'){
+                    let num = 0
+
+                    // TOP
+                    if(i===0){
+                    // Top Left
+                        if(j ===0){
+                            if(boardArr[i+1][j] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i+1][j+1] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i][j+1] === 'X'){
+                                num++
+                            }
+                        }
+
+                     // Top Right
+                        if(j === numCols-1){
+                            if(boardArr[i+1][j] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i+1][j-1] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i][j-1] === 'X'){
+                                num++
+                            }
+                        }
+                        // Top rest
+                        if(j !==0 && j!== numCols-1){
+                            if(boardArr[i+1][j] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i+1][j-1] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i+1][j+1] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i][j-1] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i][j+1] === 'X'){
+                                num++
+                            }
+                        }
+                    }
+
+                    // BOT
+                    else if(i === numRows-1){
+                    // Bot Right
+                        if(j === numCols-1){
+                            if(boardArr[i-1][j] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i-1][j-1] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i][j-1] === 'X'){
+                                num++
+                            }
+                        }
+
+                        // Bot Left
+                        if(j===0){
+                            if(boardArr[i-1][j] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i-1][j+1] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i][j+1] === 'X'){
+                                num++
+                            }
+                        }
+                        // Bot rest
+                        if(j !==0 && j!== numCols-1){
+                            if(boardArr[i-1][j] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i-1][j+1] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i-1][j-1] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i][j+1] === 'X'){
+                                num++
+                            }
+                            if(boardArr[i][j-1] === 'X'){
+                                num++
+                            }
+                        }
+                    }
+
+                    // LEFT REST
+                    else if(j===0 && i!==0 && i!==numRows-1){
+                        if(boardArr[i-1][j] === 'X'){
                             num++
                         }
-                        if(boardArr[i+1][j+1] === 'X'){
+                        if(boardArr[i-1][j+1] === 'X'){
                             num++
                         }
                         if(boardArr[i][j+1] === 'X'){
                             num++
                         }
+                        if(boardArr[i+1][j+1] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i+1][j] === 'X'){
+                            num++
+                        }
                     }
-                    if(boardArr[i-1][j] === 'X'){
-                        num++
+
+                    // RIGHT REST
+                    else if(j===numCols-1 && i!==0 && i!==numRows-1){
+                        if(boardArr[i-1][j] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i-1][j-1] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i][j-1] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i+1][j-1] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i+1][j] === 'X'){
+                            num++
+                        }
                     }
-                    if(boardArr[i-1][j-1] === 'X'){
-                        num++
+
+                    // REST MIDDLE
+                    else {
+                        if(boardArr[i-1][j] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i-1][j-1] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i][j-1] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i+1][j-1] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i+1][j] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i-1][j+1] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i][j+1] === 'X'){
+                            num++
+                        }
+                        if(boardArr[i+1][j+1] === 'X'){
+                            num++
+                        }
                     }
-                    if(boardArr[i][j-1] === 'X'){
-                        num++
-                    }
-                    // Top right
-                    if(boardArr[i-1][j+1] === 'X'){
-                        num++
-                    }
-                    if(boardArr[i+1][j-1] === 'X'){
-                        num++
-                    }
-                }
+
+                    
+
+
+                    // // Top Row
+                    // if(boardArr[0][!0]){
+                    //     if(boardArr[i+1][j] === 'X'){
+                    //         num++
+                    //     }
+                    //     if(boardArr[i+1][j+1] === 'X'){
+                    //         num++
+                    //     }
+                    //     if(boardArr[i][j+1] === 'X'){
+                    //         num++
+                    //     }
+                    // }
+
+                   // Bot Row
+
+                //    if(i === numRows-1 && j !== 0 && j!== numCols-1){
+                //     if(boardArr[i-1][j] === 'X'){
+                //         num++
+                //     }
+                //     if(boardArr[i-1][j-1] === 'X'){
+                //         num++
+                //     }
+                //     if(boardArr[i][j-1] === 'X'){
+                //         num++
+                //     }
+                // }
                 boardArr[i][j] = num
+                }
+                
             }
         }
 
