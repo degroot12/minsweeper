@@ -81,12 +81,6 @@ import React, { useEffect, useState } from 'react'
 
 export default function Board() {
 
-    // [
-    // [[1][2][3][4][5]], [[1][2][3][4][5]], [[1][2][3][4][5]],
-    // [[1][2][3][4][5]],
-    // [[1][2][3][4][5]],
-    // ]
-
     const [grid, setGrid] = useState([]);
 
     useEffect(() => {
@@ -108,7 +102,6 @@ export default function Board() {
             let colIndex = Math.floor(Math.random() * boardArr[0].length);
             console.log('position',rowIndex, colIndex)
             if(boardArr){
-                //console.log('boardArr[0] length',boardArr[0].length)
                 while(boardArr[rowIndex][colIndex] === 'X'){
                     colIndex++
                     
@@ -121,20 +114,7 @@ export default function Board() {
             boardArr[rowIndex][colIndex] = 'X';
         }
         
-        const nonBombs = numRows * numCols - mines;
-        // for(let i =0;i<nonBombs;i++){
-        //     // Top left
-        //     if(boardArr[0][0+1] === 'X'){
-        //         num++
-        //     }
-        //     if(boardArr[0+1][0] === 'X'){
-        //         num++
-        //     }
-        //     if(boardArr[0+1][0+1] === 'X'){
-        //         num++
-        //     }
-        // }
-
+        //const nonBombs = numRows * numCols - mines;
 
         for(let i=0;i<numRows ;i++){
             for(let j=0; j<numCols;j++){
