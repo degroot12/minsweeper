@@ -92,10 +92,16 @@ export default function Board() {
         for(let i=0;i<numRows ;i++){
             let rowArr = [];
             for(let j=0; j<numCols;j++){
-                rowArr.push('')
+                rowArr.push({
+                    value: 0,
+                    row: i,
+                    col: j,
+                    revealed: false
+                })
             }
             boardArr.push(rowArr);
         }
+
 
         for(let i=0;i<mines;i++){
             let rowIndex = Math.floor(Math.random() * boardArr.length);
@@ -111,59 +117,57 @@ export default function Board() {
                 }
             }
             
-            boardArr[rowIndex][colIndex] = 'X';
+            boardArr[rowIndex][colIndex].value = 'X';
         }
         
         //const nonBombs = numRows * numCols - mines;
 
         for(let i=0;i<numRows ;i++){
             for(let j=0; j<numCols;j++){
-                if(boardArr[i][j] !== 'X'){
-                    let num = 0
-
+                if(boardArr[i][j].value !== 'X'){
                     // TOP
                     if(i===0){
                     // Top Left
                         if(j ===0){
-                            if(boardArr[i+1][j] === 'X'){
-                                num++
+                            if(boardArr[i+1][j].value === 'X'){
+                                boardArr[i][j].value++
                             }
-                            if(boardArr[i+1][j+1] === 'X'){
-                                num++
+                            if(boardArr[i+1][j+1].value === 'X'){
+                                boardArr[i][j].value++
                             }
-                            if(boardArr[i][j+1] === 'X'){
-                                num++
+                            if(boardArr[i][j+1].value === 'X'){
+                                boardArr[i][j].value++
                             }
                         }
 
-                     // Top Right
+                    // Top Right
                         if(j === numCols-1){
-                            if(boardArr[i+1][j] === 'X'){
-                                num++
+                            if(boardArr[i+1][j].value === 'X'){
+                                boardArr[i][j].value++
                             }
-                            if(boardArr[i+1][j-1] === 'X'){
-                                num++
+                            if(boardArr[i+1][j-1].value === 'X'){
+                                boardArr[i][j].value++
                             }
-                            if(boardArr[i][j-1] === 'X'){
-                                num++
+                            if(boardArr[i][j-1].value === 'X'){
+                                boardArr[i][j].value++
                             }
                         }
                         // Top rest
                         if(j !==0 && j!== numCols-1){
-                            if(boardArr[i+1][j] === 'X'){
-                                num++
+                            if(boardArr[i+1][j].value === 'X'){
+                                boardArr[i][j].value++
                             }
-                            if(boardArr[i+1][j-1] === 'X'){
-                                num++
+                            if(boardArr[i+1][j-1].value === 'X'){
+                                boardArr[i][j].value++
                             }
-                            if(boardArr[i+1][j+1] === 'X'){
-                                num++
+                            if(boardArr[i+1][j+1].value === 'X'){
+                                boardArr[i][j].value++
                             }
-                            if(boardArr[i][j-1] === 'X'){
-                                num++
+                            if(boardArr[i][j-1].value === 'X'){
+                                boardArr[i][j].value++
                             }
-                            if(boardArr[i][j+1] === 'X'){
-                                num++
+                            if(boardArr[i][j+1].value === 'X'){
+                                boardArr[i][j].value++
                             }
                         }
                     }
@@ -172,119 +176,129 @@ export default function Board() {
                     else if(i === numRows-1){
                     // Bot Right
                         if(j === numCols-1){
-                            if(boardArr[i-1][j] === 'X'){
-                                num++
+                            if(boardArr[i-1][j].value === 'X'){
+                                 boardArr[i][j].value++
                             }
-                            if(boardArr[i-1][j-1] === 'X'){
-                                num++
+                            if(boardArr[i-1][j-1].value === 'X'){
+                                 boardArr[i][j].value++
                             }
-                            if(boardArr[i][j-1] === 'X'){
-                                num++
+                            if(boardArr[i][j-1].value === 'X'){
+                                 boardArr[i][j].value++
                             }
                         }
 
                         // Bot Left
                         if(j===0){
-                            if(boardArr[i-1][j] === 'X'){
-                                num++
+                            if(boardArr[i-1][j].value === 'X'){
+                                 boardArr[i][j].value++
                             }
-                            if(boardArr[i-1][j+1] === 'X'){
-                                num++
+                            if(boardArr[i-1][j+1].value === 'X'){
+                                 boardArr[i][j].value++
                             }
-                            if(boardArr[i][j+1] === 'X'){
-                                num++
+                            if(boardArr[i][j+1].value === 'X'){
+                                 boardArr[i][j].value++
                             }
                         }
                         // Bot rest
                         if(j !==0 && j!== numCols-1){
-                            if(boardArr[i-1][j] === 'X'){
-                                num++
+                            if(boardArr[i-1][j].value === 'X'){
+                                 boardArr[i][j].value++
                             }
-                            if(boardArr[i-1][j+1] === 'X'){
-                                num++
+                            if(boardArr[i-1][j+1].value === 'X'){
+                                 boardArr[i][j].value++
                             }
-                            if(boardArr[i-1][j-1] === 'X'){
-                                num++
+                            if(boardArr[i-1][j-1].value === 'X'){
+                                 boardArr[i][j].value++
                             }
-                            if(boardArr[i][j+1] === 'X'){
-                                num++
+                            if(boardArr[i][j+1].value === 'X'){
+                                 boardArr[i][j].value++
                             }
-                            if(boardArr[i][j-1] === 'X'){
-                                num++
+                            if(boardArr[i][j-1].value === 'X'){
+                                 boardArr[i][j].value++
                             }
                         }
                     }
 
                     // LEFT REST
                     else if(j===0 && i!==0 && i!==numRows-1){
-                        if(boardArr[i-1][j] === 'X'){
-                            num++
+                        if(boardArr[i-1][j].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i-1][j+1] === 'X'){
-                            num++
+                        if(boardArr[i-1][j+1].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i][j+1] === 'X'){
-                            num++
+                        if(boardArr[i][j+1].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i+1][j+1] === 'X'){
-                            num++
+                        if(boardArr[i+1][j+1].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i+1][j] === 'X'){
-                            num++
+                        if(boardArr[i+1][j].value === 'X'){
+                             boardArr[i][j].value++
                         }
                     }
 
                     // RIGHT REST
                     else if(j===numCols-1 && i!==0 && i!==numRows-1){
-                        if(boardArr[i-1][j] === 'X'){
-                            num++
+                        if(boardArr[i-1][j].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i-1][j-1] === 'X'){
-                            num++
+                        if(boardArr[i-1][j-1].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i][j-1] === 'X'){
-                            num++
+                        if(boardArr[i][j-1].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i+1][j-1] === 'X'){
-                            num++
+                        if(boardArr[i+1][j-1].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i+1][j] === 'X'){
-                            num++
+                        if(boardArr[i+1][j].value === 'X'){
+                             boardArr[i][j].value++
                         }
                     }
 
                     // REST MIDDLE
                     else {
-                        if(boardArr[i-1][j] === 'X'){
-                            num++
+                        if(boardArr[i-1][j].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i-1][j-1] === 'X'){
-                            num++
+                        if(boardArr[i-1][j-1].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i][j-1] === 'X'){
-                            num++
+                        if(boardArr[i][j-1].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i+1][j-1] === 'X'){
-                            num++
+                        if(boardArr[i+1][j-1].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i+1][j] === 'X'){
-                            num++
+                        if(boardArr[i+1][j].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i-1][j+1] === 'X'){
-                            num++
+                        if(boardArr[i-1][j+1].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i][j+1] === 'X'){
-                            num++
+                        if(boardArr[i][j+1].value === 'X'){
+                             boardArr[i][j].value++
                         }
-                        if(boardArr[i+1][j+1] === 'X'){
-                            num++
+                        if(boardArr[i+1][j+1].value === 'X'){
+                             boardArr[i][j].value++
                         }
                     }
-                boardArr[i][j] = num
+                // boardArr[i][j].value = num
                 }
             }
         }
         return boardArr
+    }
+
+    function revealSquare(row,col){
+    let clonedGrid = JSON.parse(JSON.stringify(grid));
+    clonedGrid[row][col].revealed = true;
+    if(clonedGrid[row][col].value === 'X'){
+        console.log('death');
+        
+    }
+    setGrid(clonedGrid);
     }
    
     
@@ -297,8 +311,8 @@ export default function Board() {
                     <div className='board'>
                         {singleRow.map((singleBlock) => {
                             return (
-                                <div className='rowsBoard'>
-                                    {singleBlock}
+                                <div className='rowsBoard' onClick={() => revealSquare(singleBlock.row, singleBlock.col)}>
+                                    {singleBlock.revealed ? singleBlock.value: ''}
                                 </div>
                                 )
                         })}
