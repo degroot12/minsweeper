@@ -84,7 +84,7 @@ export default function Board() {
     const [grid, setGrid] = useState([]);
 
     useEffect(() => {
-        setGrid(setBoard(10,5,15))
+        setGrid(setBoard(10,10,5))
     },[])
 
     function setBoard(numCols,numRows, mines){
@@ -126,164 +126,157 @@ export default function Board() {
             for(let j=0; j<numCols;j++){
                 if(boardArr[i][j].value !== 'X'){
                     // TOP
-                    if(i===0){
+                    
                     // Top Left
-                        if(j ===0){
-                            if(boardArr[i+1][j].value === 'X'){
-                                boardArr[i][j].value++
-                            }
-                            if(boardArr[i+1][j+1].value === 'X'){
-                                boardArr[i][j].value++
-                            }
-                            if(boardArr[i][j+1].value === 'X'){
-                                boardArr[i][j].value++
-                            }
-                        }
+                    //     if(j ===0){
+                    //         if(boardArr[i+1][j].value === 'X' || boardArr[i+1][j+1].value === 'X' || boardArr[i][j+1].value === 'X'){
+                    //             boardArr[i][j].value++
+                    //         }
+                    //     }
 
-                    // Top Right
-                        if(j === numCols-1){
-                            if(boardArr[i+1][j].value === 'X'){
-                                boardArr[i][j].value++
-                            }
-                            if(boardArr[i+1][j-1].value === 'X'){
-                                boardArr[i][j].value++
-                            }
-                            if(boardArr[i][j-1].value === 'X'){
-                                boardArr[i][j].value++
-                            }
-                        }
-                        // Top rest
-                        if(j !==0 && j!== numCols-1){
-                            if(boardArr[i+1][j].value === 'X'){
-                                boardArr[i][j].value++
-                            }
-                            if(boardArr[i+1][j-1].value === 'X'){
-                                boardArr[i][j].value++
-                            }
-                            if(boardArr[i+1][j+1].value === 'X'){
-                                boardArr[i][j].value++
-                            }
-                            if(boardArr[i][j-1].value === 'X'){
-                                boardArr[i][j].value++
-                            }
-                            if(boardArr[i][j+1].value === 'X'){
-                                boardArr[i][j].value++
-                            }
-                        }
-                    }
+                    // // Top Right
+                    //     if(j === numCols-1){
+                    //         if(boardArr[i+1][j].value === 'X'){
+                    //             boardArr[i][j].value++
+                    //         }
+                    //         if(boardArr[i+1][j-1].value === 'X'){
+                    //             boardArr[i][j].value++
+                    //         }
+                    //         if(boardArr[i][j-1].value === 'X'){
+                    //             boardArr[i][j].value++
+                    //         }
+                    //     }
+                    //     // Top rest
+                    //     if(j !==0 && j!== numCols-1){
+                    //         if(boardArr[i+1][j].value === 'X'){
+                    //             boardArr[i][j].value++
+                    //         }
+                    //         if(boardArr[i+1][j-1].value === 'X'){
+                    //             boardArr[i][j].value++
+                    //         }
+                    //         if(boardArr[i+1][j+1].value === 'X'){
+                    //             boardArr[i][j].value++
+                    //         }
+                    //         if(boardArr[i][j-1].value === 'X'){
+                    //             boardArr[i][j].value++
+                    //         }
+                    //         if(boardArr[i][j+1].value === 'X'){
+                    //             boardArr[i][j].value++
+                    //         }
+                    //     }
+                    // }
 
-                    // BOT
-                    else if(i === numRows-1){
-                    // Bot Right
-                        if(j === numCols-1){
-                            if(boardArr[i-1][j].value === 'X'){
-                                 boardArr[i][j].value++
-                            }
-                            if(boardArr[i-1][j-1].value === 'X'){
-                                 boardArr[i][j].value++
-                            }
-                            if(boardArr[i][j-1].value === 'X'){
-                                 boardArr[i][j].value++
-                            }
-                        }
+                    // // BOT
+                    // else if(i === numRows-1){
+                    // // Bot Right
+                    //     if(j === numCols-1){
+                    //         if(boardArr[i-1][j].value === 'X'){
+                    //              boardArr[i][j].value++
+                    //         }
+                    //         if(boardArr[i-1][j-1].value === 'X'){
+                    //              boardArr[i][j].value++
+                    //         }
+                    //         if(boardArr[i][j-1].value === 'X'){
+                    //              boardArr[i][j].value++
+                    //         }
+                    //     }
 
-                        // Bot Left
-                        if(j===0){
-                            if(boardArr[i-1][j].value === 'X'){
-                                 boardArr[i][j].value++
-                            }
-                            if(boardArr[i-1][j+1].value === 'X'){
-                                 boardArr[i][j].value++
-                            }
-                            if(boardArr[i][j+1].value === 'X'){
-                                 boardArr[i][j].value++
-                            }
-                        }
-                        // Bot rest
-                        if(j !==0 && j!== numCols-1){
-                            if(boardArr[i-1][j].value === 'X'){
-                                 boardArr[i][j].value++
-                            }
-                            if(boardArr[i-1][j+1].value === 'X'){
-                                 boardArr[i][j].value++
-                            }
-                            if(boardArr[i-1][j-1].value === 'X'){
-                                 boardArr[i][j].value++
-                            }
-                            if(boardArr[i][j+1].value === 'X'){
-                                 boardArr[i][j].value++
-                            }
-                            if(boardArr[i][j-1].value === 'X'){
-                                 boardArr[i][j].value++
-                            }
-                        }
-                    }
+                    //     // Bot Left
+                    //     if(j===0){
+                    //         if(boardArr[i-1][j].value === 'X'){
+                    //              boardArr[i][j].value++
+                    //         }
+                    //         if(boardArr[i-1][j+1].value === 'X'){
+                    //              boardArr[i][j].value++
+                    //         }
+                    //         if(boardArr[i][j+1].value === 'X'){
+                    //              boardArr[i][j].value++
+                    //         }
+                    //     }
+                    //     // Bot rest
+                    //     if(j !==0 && j!== numCols-1){
+                    //         if(boardArr[i-1][j].value === 'X'){
+                    //              boardArr[i][j].value++
+                    //         }
+                    //         if(boardArr[i-1][j+1].value === 'X'){
+                    //              boardArr[i][j].value++
+                    //         }
+                    //         if(boardArr[i-1][j-1].value === 'X'){
+                    //              boardArr[i][j].value++
+                    //         }
+                    //         if(boardArr[i][j+1].value === 'X'){
+                    //              boardArr[i][j].value++
+                    //         }
+                    //         if(boardArr[i][j-1].value === 'X'){
+                    //              boardArr[i][j].value++
+                    //         }
+                    //     }
+                    // }
 
-                    // LEFT REST
-                    else if(j===0 && i!==0 && i!==numRows-1){
-                        if(boardArr[i-1][j].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i-1][j+1].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i][j+1].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i+1][j+1].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i+1][j].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                    }
+                    // // LEFT REST
+                    // else if(j===0 && i!==0 && i!==numRows-1){
+                    //     if(boardArr[i-1][j].value === 'X'){
+                    //          boardArr[i][j].value++
+                    //     }
+                    //     if(boardArr[i-1][j+1].value === 'X'){
+                    //          boardArr[i][j].value++
+                    //     }
+                    //     if(boardArr[i][j+1].value === 'X'){
+                    //          boardArr[i][j].value++
+                    //     }
+                    //     if(boardArr[i+1][j+1].value === 'X'){
+                    //          boardArr[i][j].value++
+                    //     }
+                    //     if(boardArr[i+1][j].value === 'X'){
+                    //          boardArr[i][j].value++
+                    //     }
+                    // }
 
-                    // RIGHT REST
-                    else if(j===numCols-1 && i!==0 && i!==numRows-1){
-                        if(boardArr[i-1][j].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i-1][j-1].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i][j-1].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i+1][j-1].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i+1][j].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                    }
+                    // // RIGHT REST
+                    // else if(j===numCols-1 && i!==0 && i!==numRows-1){
+                    //     if(boardArr[i-1][j].value === 'X'){
+                    //          boardArr[i][j].value++
+                    //     }
+                    //     if(boardArr[i-1][j-1].value === 'X'){
+                    //          boardArr[i][j].value++
+                    //     }
+                    //     if(boardArr[i][j-1].value === 'X'){
+                    //          boardArr[i][j].value++
+                    //     }
+                    //     if(boardArr[i+1][j-1].value === 'X'){
+                    //          boardArr[i][j].value++
+                    //     }
+                    //     if(boardArr[i+1][j].value === 'X'){
+                    //          boardArr[i][j].value++
+                    //     }
+                    // }
 
                     // REST MIDDLE
-                    else {
-                        if(boardArr[i-1][j].value === 'X'){
+                    
+                        if( boardArr[i-1] && boardArr[i-1][j] && boardArr[i-1][j].value === 'X'){
                              boardArr[i][j].value++
                         }
-                        if(boardArr[i-1][j-1].value === 'X'){
+                        if(boardArr[i-1] && boardArr[i-1][j-1] && boardArr[i-1][j-1].value === 'X'){
                              boardArr[i][j].value++
                         }
-                        if(boardArr[i][j-1].value === 'X'){
+                        if(boardArr[i] && boardArr[i][j-1] && boardArr[i][j-1].value === 'X'){
                              boardArr[i][j].value++
                         }
-                        if(boardArr[i+1][j-1].value === 'X'){
+                        if(boardArr[i+1] && boardArr[i+1][j-1] && boardArr[i+1][j-1].value === 'X'){
                              boardArr[i][j].value++
                         }
-                        if(boardArr[i+1][j].value === 'X'){
+                        if(boardArr[i+1] && boardArr[i+1][j] && boardArr[i+1][j].value === 'X'){
                              boardArr[i][j].value++
                         }
-                        if(boardArr[i-1][j+1].value === 'X'){
+                        if(boardArr[i-1] && boardArr[i-1][j+1] && boardArr[i-1][j+1].value === 'X'){
                              boardArr[i][j].value++
                         }
-                        if(boardArr[i][j+1].value === 'X'){
+                        if(boardArr[i] && boardArr[i][j+1] && boardArr[i][j+1].value === 'X'){
                              boardArr[i][j].value++
                         }
-                        if(boardArr[i+1][j+1].value === 'X'){
+                        if(boardArr[i+1] && boardArr[i+1][j+1] && boardArr[i+1][j+1].value === 'X'){
                              boardArr[i][j].value++
                         }
-                    }
                 // boardArr[i][j].value = num
                 }
             }
@@ -291,16 +284,81 @@ export default function Board() {
         return boardArr
     }
 
-    function revealSquare(row,col){
-    let clonedGrid = JSON.parse(JSON.stringify(grid));
-    clonedGrid[row][col].revealed = true;
-    if(clonedGrid[row][col].value === 'X'){
-        console.log('death');
-        
-    }
-    setGrid(clonedGrid);
-    }
+    // function revealZero(row,col){
+
+    // }
    
+    function handleClick(row, col){  
+        const zeroesObj = {};
+        let clonedGrid = JSON.parse(JSON.stringify(grid));
+        function revealSquare(row,col){
+            if(clonedGrid[row][col].value === 0){
+                if(clonedGrid[row] && clonedGrid[row][col+1]){
+                    clonedGrid[row][col+1].revealed = true
+                }
+                if(clonedGrid[row+1] && clonedGrid[row+1][col+1]){
+                    clonedGrid[row+1][col+1].revealed = true;
+                }
+                if(clonedGrid[row+1] && clonedGrid[row+1][col]){
+                    clonedGrid[row+1][col].revealed = true;
+                }
+                if(clonedGrid[row+1] && clonedGrid[row+1][col-1]){
+                    clonedGrid[row+1][col-1].revealed = true;
+                }
+                if(clonedGrid[row-1] && clonedGrid[row-1][col+1]){
+                    clonedGrid[row-1][col+1].revealed = true;
+                }
+                if(clonedGrid[row-1] && clonedGrid[row-1][col]){
+                    clonedGrid[row-1][col].revealed = true;
+                }
+                if(clonedGrid[row-1] && clonedGrid[row-1][col-1]){
+                    clonedGrid[row-1][col-1].revealed = true;
+                }
+                if(clonedGrid[row] && clonedGrid[row][col-1]){
+                    clonedGrid[row][col-1].revealed = true
+                    //revealedZero(row,col-1)
+                    
+                }
+            }
+            clonedGrid[row][col].revealed = true;
+        
+            if(clonedGrid[row][col].value === 'X'){
+                alert('you died')
+            }
+            if(clonedGrid[row][col].value === 0){
+                zeroesObj[`${row}-${col}`] = true;
+                if(clonedGrid[row] && clonedGrid[row][col+1] && clonedGrid[row][col+1].value === 0 && !zeroesObj[`${row}-${col+1}`]){
+                    revealSquare(row, col+1)
+                }
+                if(clonedGrid[row+1] && clonedGrid[row+1][col+1] && clonedGrid[row+1][col+1].value === 0 && !zeroesObj[`${row+1}-${col+1}`]){
+                    revealSquare(row+1, col+1)
+                }
+                if(clonedGrid[row+1] && clonedGrid[row+1][col] && clonedGrid[row+1][col].value === 0 && !zeroesObj[`${row+1}-${col}`]){
+                    revealSquare(row+1, col)
+                }
+                if(clonedGrid[row+1] && clonedGrid[row+1][col-1] && clonedGrid[row+1][col-1].value === 0 && !zeroesObj[`${row+1}-${col-1}`]){
+                    revealSquare(row+1, col-1)
+                }
+                if(clonedGrid[row-1] && clonedGrid[row-1][col+1] && clonedGrid[row-1][col+1].value === 0  && !zeroesObj[`${row-1}-${col+1}`]){
+                    revealSquare(row-1, col+1)
+                }
+                if(clonedGrid[row-1] && clonedGrid[row-1][col] && clonedGrid[row-1][col].value === 0  && !zeroesObj[`${row-1}-${col}`]){
+                    revealSquare(row-1, col)
+                }
+                if(clonedGrid[row-1] && clonedGrid[row-1][col-1] && clonedGrid[row-1][col-1].value === 0  && !zeroesObj[`${row-1}-${col-1}`]){
+                    revealSquare(row-1, col-1)
+                }
+                if(clonedGrid[row] && clonedGrid[row][col-1] && clonedGrid[row][col-1].value === 0  && !zeroesObj[`${row}-${col-1}`]){
+                    revealSquare(row, col-1)
+                    //revealedZero(row,col-1)
+                    
+                }
+            }
+            setGrid(clonedGrid);
+            }
+    
+        revealSquare(row, col)
+    }
     
 
     return (
@@ -311,7 +369,7 @@ export default function Board() {
                     <div className='board'>
                         {singleRow.map((singleBlock) => {
                             return (
-                                <div className='rowsBoard' onClick={() => revealSquare(singleBlock.row, singleBlock.col)}>
+                                <div className='rowsBoard' onClick={() => handleClick(singleBlock.row, singleBlock.col)}>
                                     {singleBlock.revealed ? singleBlock.value: ''}
                                 </div>
                                 )
