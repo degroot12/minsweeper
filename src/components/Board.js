@@ -84,7 +84,7 @@ export default function Board() {
     const [grid, setGrid] = useState([]);
 
     useEffect(() => {
-        setGrid(setBoard(10,10,5))
+        setGrid(setBoard(10,10,10))
     },[])
 
     function setBoard(numCols,numRows, mines){
@@ -96,7 +96,8 @@ export default function Board() {
                     value: 0,
                     row: i,
                     col: j,
-                    revealed: false
+                    revealed: false,
+                    flagged: false
                 })
             }
             boardArr.push(rowArr);
@@ -124,160 +125,31 @@ export default function Board() {
 
         for(let i=0;i<numRows ;i++){
             for(let j=0; j<numCols;j++){
-                if(boardArr[i][j].value !== 'X'){
-                    // TOP
-                    
-                    // Top Left
-                    //     if(j ===0){
-                    //         if(boardArr[i+1][j].value === 'X' || boardArr[i+1][j+1].value === 'X' || boardArr[i][j+1].value === 'X'){
-                    //             boardArr[i][j].value++
-                    //         }
-                    //     }
-
-                    // // Top Right
-                    //     if(j === numCols-1){
-                    //         if(boardArr[i+1][j].value === 'X'){
-                    //             boardArr[i][j].value++
-                    //         }
-                    //         if(boardArr[i+1][j-1].value === 'X'){
-                    //             boardArr[i][j].value++
-                    //         }
-                    //         if(boardArr[i][j-1].value === 'X'){
-                    //             boardArr[i][j].value++
-                    //         }
-                    //     }
-                    //     // Top rest
-                    //     if(j !==0 && j!== numCols-1){
-                    //         if(boardArr[i+1][j].value === 'X'){
-                    //             boardArr[i][j].value++
-                    //         }
-                    //         if(boardArr[i+1][j-1].value === 'X'){
-                    //             boardArr[i][j].value++
-                    //         }
-                    //         if(boardArr[i+1][j+1].value === 'X'){
-                    //             boardArr[i][j].value++
-                    //         }
-                    //         if(boardArr[i][j-1].value === 'X'){
-                    //             boardArr[i][j].value++
-                    //         }
-                    //         if(boardArr[i][j+1].value === 'X'){
-                    //             boardArr[i][j].value++
-                    //         }
-                    //     }
-                    // }
-
-                    // // BOT
-                    // else if(i === numRows-1){
-                    // // Bot Right
-                    //     if(j === numCols-1){
-                    //         if(boardArr[i-1][j].value === 'X'){
-                    //              boardArr[i][j].value++
-                    //         }
-                    //         if(boardArr[i-1][j-1].value === 'X'){
-                    //              boardArr[i][j].value++
-                    //         }
-                    //         if(boardArr[i][j-1].value === 'X'){
-                    //              boardArr[i][j].value++
-                    //         }
-                    //     }
-
-                    //     // Bot Left
-                    //     if(j===0){
-                    //         if(boardArr[i-1][j].value === 'X'){
-                    //              boardArr[i][j].value++
-                    //         }
-                    //         if(boardArr[i-1][j+1].value === 'X'){
-                    //              boardArr[i][j].value++
-                    //         }
-                    //         if(boardArr[i][j+1].value === 'X'){
-                    //              boardArr[i][j].value++
-                    //         }
-                    //     }
-                    //     // Bot rest
-                    //     if(j !==0 && j!== numCols-1){
-                    //         if(boardArr[i-1][j].value === 'X'){
-                    //              boardArr[i][j].value++
-                    //         }
-                    //         if(boardArr[i-1][j+1].value === 'X'){
-                    //              boardArr[i][j].value++
-                    //         }
-                    //         if(boardArr[i-1][j-1].value === 'X'){
-                    //              boardArr[i][j].value++
-                    //         }
-                    //         if(boardArr[i][j+1].value === 'X'){
-                    //              boardArr[i][j].value++
-                    //         }
-                    //         if(boardArr[i][j-1].value === 'X'){
-                    //              boardArr[i][j].value++
-                    //         }
-                    //     }
-                    // }
-
-                    // // LEFT REST
-                    // else if(j===0 && i!==0 && i!==numRows-1){
-                    //     if(boardArr[i-1][j].value === 'X'){
-                    //          boardArr[i][j].value++
-                    //     }
-                    //     if(boardArr[i-1][j+1].value === 'X'){
-                    //          boardArr[i][j].value++
-                    //     }
-                    //     if(boardArr[i][j+1].value === 'X'){
-                    //          boardArr[i][j].value++
-                    //     }
-                    //     if(boardArr[i+1][j+1].value === 'X'){
-                    //          boardArr[i][j].value++
-                    //     }
-                    //     if(boardArr[i+1][j].value === 'X'){
-                    //          boardArr[i][j].value++
-                    //     }
-                    // }
-
-                    // // RIGHT REST
-                    // else if(j===numCols-1 && i!==0 && i!==numRows-1){
-                    //     if(boardArr[i-1][j].value === 'X'){
-                    //          boardArr[i][j].value++
-                    //     }
-                    //     if(boardArr[i-1][j-1].value === 'X'){
-                    //          boardArr[i][j].value++
-                    //     }
-                    //     if(boardArr[i][j-1].value === 'X'){
-                    //          boardArr[i][j].value++
-                    //     }
-                    //     if(boardArr[i+1][j-1].value === 'X'){
-                    //          boardArr[i][j].value++
-                    //     }
-                    //     if(boardArr[i+1][j].value === 'X'){
-                    //          boardArr[i][j].value++
-                    //     }
-                    // }
-
-                    // REST MIDDLE
-                    
-                        if( boardArr[i-1] && boardArr[i-1][j] && boardArr[i-1][j].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i-1] && boardArr[i-1][j-1] && boardArr[i-1][j-1].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i] && boardArr[i][j-1] && boardArr[i][j-1].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i+1] && boardArr[i+1][j-1] && boardArr[i+1][j-1].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i+1] && boardArr[i+1][j] && boardArr[i+1][j].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i-1] && boardArr[i-1][j+1] && boardArr[i-1][j+1].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i] && boardArr[i][j+1] && boardArr[i][j+1].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                        if(boardArr[i+1] && boardArr[i+1][j+1] && boardArr[i+1][j+1].value === 'X'){
-                             boardArr[i][j].value++
-                        }
-                // boardArr[i][j].value = num
+                if(boardArr[i][j].value !== 'X'){            
+                    if( boardArr[i-1] && boardArr[i-1][j] && boardArr[i-1][j].value === 'X'){
+                            boardArr[i][j].value++
+                    }
+                    if(boardArr[i-1] && boardArr[i-1][j-1] && boardArr[i-1][j-1].value === 'X'){
+                            boardArr[i][j].value++
+                    }
+                    if(boardArr[i] && boardArr[i][j-1] && boardArr[i][j-1].value === 'X'){
+                            boardArr[i][j].value++
+                    }
+                    if(boardArr[i+1] && boardArr[i+1][j-1] && boardArr[i+1][j-1].value === 'X'){
+                            boardArr[i][j].value++
+                    }
+                    if(boardArr[i+1] && boardArr[i+1][j] && boardArr[i+1][j].value === 'X'){
+                            boardArr[i][j].value++
+                    }
+                    if(boardArr[i-1] && boardArr[i-1][j+1] && boardArr[i-1][j+1].value === 'X'){
+                            boardArr[i][j].value++
+                    }
+                    if(boardArr[i] && boardArr[i][j+1] && boardArr[i][j+1].value === 'X'){
+                            boardArr[i][j].value++
+                    }
+                    if(boardArr[i+1] && boardArr[i+1][j+1] && boardArr[i+1][j+1].value === 'X'){
+                            boardArr[i][j].value++
+                    }
                 }
             }
         }
@@ -294,7 +166,7 @@ export default function Board() {
         function revealSquare(row,col){
             if(clonedGrid[row][col].value === 0){
                 if(clonedGrid[row] && clonedGrid[row][col+1]){
-                    clonedGrid[row][col+1].revealed = true
+                    clonedGrid[row][col+1].revealed = true;  
                 }
                 if(clonedGrid[row+1] && clonedGrid[row+1][col+1]){
                     clonedGrid[row+1][col+1].revealed = true;
@@ -359,6 +231,13 @@ export default function Board() {
     
         revealSquare(row, col)
     }
+
+    function handleFlag(event, row, col){
+        event.preventDefault();
+        let clonedGrid = JSON.parse(JSON.stringify(grid));
+        clonedGrid[row][col].flagged = true;
+        setGrid(clonedGrid)
+    }
     
 
     return (
@@ -369,8 +248,8 @@ export default function Board() {
                     <div className='board'>
                         {singleRow.map((singleBlock) => {
                             return (
-                                <div className='rowsBoard' onClick={() => handleClick(singleBlock.row, singleBlock.col)}>
-                                    {singleBlock.revealed ? singleBlock.value: ''}
+                                <div className='rowsBoard' onClick={() => handleClick(singleBlock.row, singleBlock.col)} onContextMenu={(event) => handleFlag(event, singleBlock.row, singleBlock.col)}>
+                                    {singleBlock.revealed ? singleBlock.value: singleBlock.flagged ? 'F': ''}
                                 </div>
                                 )
                         })}
