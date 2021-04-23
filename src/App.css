@@ -14,4 +14,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgb(211, 211, 211);
 }
+
+.rowsBoard:hover{
+  background-color: rgb(185, 185, 185);
+}
+
+.not-revealed {
+  width:30px;
+  height:30px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+}
+
+/* .revealed {
+  background-color: rgb(211, 211, 211);
+} */

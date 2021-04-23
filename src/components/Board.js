@@ -82,12 +82,19 @@ import React, { useEffect, useState } from 'react'
 export default function Board() {
 
     const [grid, setGrid] = useState([]);
+    const [mines, setMines] = useState(0);
+    const [nonMines, setNonMines] = useState(0);
+    const[isActive, setActive] = useState(false);
 
     useEffect(() => {
         setGrid(setBoard(10,10,10))
     },[])
 
+   
     function setBoard(numCols,numRows, mines){
+        setMines(mines);
+        let nonMines = numCols * numRows - mines
+        setNonMines(nonMines)
         const boardArr = []
         for(let i=0;i<numRows ;i++){
             let rowArr = [];
@@ -151,6 +158,9 @@ export default function Board() {
                             boardArr[i][j].value++
                     }
                 }
+                if(boardArr[i][j].value === 1){
+
+                }
             }
         }
         return boardArr
@@ -166,38 +176,38 @@ export default function Board() {
         function revealSquare(row,col){
             if(clonedGrid[row][col].value === 0){
                 if(clonedGrid[row] && clonedGrid[row][col+1]){
+                    setNonMines(nonMines-1);
                     clonedGrid[row][col+1].revealed = true;  
                 }
                 if(clonedGrid[row+1] && clonedGrid[row+1][col+1]){
                     clonedGrid[row+1][col+1].revealed = true;
+                    setNonMines(nonMines-1)  
                 }
                 if(clonedGrid[row+1] && clonedGrid[row+1][col]){
                     clonedGrid[row+1][col].revealed = true;
+                    setNonMines(nonMines-1)  
                 }
                 if(clonedGrid[row+1] && clonedGrid[row+1][col-1]){
                     clonedGrid[row+1][col-1].revealed = true;
+                    setNonMines(nonMines-1)  
                 }
                 if(clonedGrid[row-1] && clonedGrid[row-1][col+1]){
                     clonedGrid[row-1][col+1].revealed = true;
+                    setNonMines(nonMines-1)  
                 }
                 if(clonedGrid[row-1] && clonedGrid[row-1][col]){
                     clonedGrid[row-1][col].revealed = true;
+                    setNonMines(nonMines-1)  
                 }
                 if(clonedGrid[row-1] && clonedGrid[row-1][col-1]){
                     clonedGrid[row-1][col-1].revealed = true;
+                    setNonMines(nonMines-1)  
                 }
                 if(clonedGrid[row] && clonedGrid[row][col-1]){
-                    clonedGrid[row][col-1].revealed = true
-                    //revealedZero(row,col-1)
-                    
+                    clonedGrid[row][col-1].revealed = true;
+                    setNonMines(nonMines-1) 
                 }
-            }
-            clonedGrid[row][col].revealed = true;
-        
-            if(clonedGrid[row][col].value === 'X'){
-                alert('you died')
-            }
-            if(clonedGrid[row][col].value === 0){
+
                 zeroesObj[`${row}-${col}`] = true;
                 if(clonedGrid[row] && clonedGrid[row][col+1] && clonedGrid[row][col+1].value === 0 && !zeroesObj[`${row}-${col+1}`]){
                     revealSquare(row, col+1)
@@ -225,10 +235,25 @@ export default function Board() {
                     //revealedZero(row,col-1)
                     
                 }
+                
             }
+            clonedGrid[row][col].revealed = true;
+            setNonMines(nonMines-1)  
+        
+            if(clonedGrid[row][col].value === 'X'){
+                alert('you died')
+            }
+            // if(clonedGrid[row][col].value === 0){
+                
+            // }
             setGrid(clonedGrid);
+            console.log('mines', mines);
+            console.log('nonmines', nonMines)
+            if(mines === 0 && nonMines === 0){
+                alert('You won!')
             }
-    
+            }
+            
         revealSquare(row, col)
     }
 
@@ -237,18 +262,31 @@ export default function Board() {
         let clonedGrid = JSON.parse(JSON.stringify(grid));
         clonedGrid[row][col].flagged = true;
         setGrid(clonedGrid)
+        let clonedMines = JSON.parse(JSON.stringify(mines));
+        setMines(clonedMines-1)
+        if(mines === 0 && nonMines === 0){
+            alert('You won!')
+        }
     }
+
+    const toggleClass = () => {
+        setActive(!isActive)
+    }
+
+    
+   
     
 
     return (
         <div>
-            <h1>Board</h1>
+            <h2>Bombs {mines}</h2>
+            <h2>Non-Bombs {nonMines}</h2>
             {grid.map((singleRow)=> {
                 return (
                     <div className='board'>
                         {singleRow.map((singleBlock) => {
                             return (
-                                <div className='rowsBoard' onClick={() => handleClick(singleBlock.row, singleBlock.col)} onContextMenu={(event) => handleFlag(event, singleBlock.row, singleBlock.col)}>
+                                <div className={isActive ? 'rowsBoard': 'not-revealed'} onClick={() => handleClick(singleBlock.row, singleBlock.col), toggleClass} onContextMenu={(event) => handleFlag(event, singleBlock.row, singleBlock.col)}>
                                     {singleBlock.revealed ? singleBlock.value: singleBlock.flagged ? 'F': ''}
                                 </div>
                                 )
