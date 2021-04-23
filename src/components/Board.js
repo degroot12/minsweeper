@@ -87,7 +87,7 @@ export default function Board() {
     const[isActive, setActive] = useState(false);
 
     useEffect(() => {
-        setGrid(setBoard(10,10,10))
+        setGrid(setBoard(3,3,1))
     },[])
 
    
@@ -169,92 +169,146 @@ export default function Board() {
     // function revealZero(row,col){
 
     // }
-   
+    // const nonBombs = {}
     function handleClick(row, col){  
         const zeroesObj = {};
+        let count = nonMines
         let clonedGrid = JSON.parse(JSON.stringify(grid));
         function revealSquare(row,col){
-            if(clonedGrid[row][col].value === 0){
-                if(clonedGrid[row] && clonedGrid[row][col+1]){
-                    setNonMines(nonMines-1);
-                    clonedGrid[row][col+1].revealed = true;  
-                }
-                if(clonedGrid[row+1] && clonedGrid[row+1][col+1]){
-                    clonedGrid[row+1][col+1].revealed = true;
-                    setNonMines(nonMines-1)  
-                }
-                if(clonedGrid[row+1] && clonedGrid[row+1][col]){
-                    clonedGrid[row+1][col].revealed = true;
-                    setNonMines(nonMines-1)  
-                }
-                if(clonedGrid[row+1] && clonedGrid[row+1][col-1]){
-                    clonedGrid[row+1][col-1].revealed = true;
-                    setNonMines(nonMines-1)  
-                }
-                if(clonedGrid[row-1] && clonedGrid[row-1][col+1]){
-                    clonedGrid[row-1][col+1].revealed = true;
-                    setNonMines(nonMines-1)  
-                }
-                if(clonedGrid[row-1] && clonedGrid[row-1][col]){
-                    clonedGrid[row-1][col].revealed = true;
-                    setNonMines(nonMines-1)  
-                }
-                if(clonedGrid[row-1] && clonedGrid[row-1][col-1]){
-                    clonedGrid[row-1][col-1].revealed = true;
-                    setNonMines(nonMines-1)  
-                }
-                if(clonedGrid[row] && clonedGrid[row][col-1]){
-                    clonedGrid[row][col-1].revealed = true;
-                    setNonMines(nonMines-1) 
-                }
-
-                zeroesObj[`${row}-${col}`] = true;
-                if(clonedGrid[row] && clonedGrid[row][col+1] && clonedGrid[row][col+1].value === 0 && !zeroesObj[`${row}-${col+1}`]){
-                    revealSquare(row, col+1)
-                }
-                if(clonedGrid[row+1] && clonedGrid[row+1][col+1] && clonedGrid[row+1][col+1].value === 0 && !zeroesObj[`${row+1}-${col+1}`]){
-                    revealSquare(row+1, col+1)
-                }
-                if(clonedGrid[row+1] && clonedGrid[row+1][col] && clonedGrid[row+1][col].value === 0 && !zeroesObj[`${row+1}-${col}`]){
-                    revealSquare(row+1, col)
-                }
-                if(clonedGrid[row+1] && clonedGrid[row+1][col-1] && clonedGrid[row+1][col-1].value === 0 && !zeroesObj[`${row+1}-${col-1}`]){
-                    revealSquare(row+1, col-1)
-                }
-                if(clonedGrid[row-1] && clonedGrid[row-1][col+1] && clonedGrid[row-1][col+1].value === 0  && !zeroesObj[`${row-1}-${col+1}`]){
-                    revealSquare(row-1, col+1)
-                }
-                if(clonedGrid[row-1] && clonedGrid[row-1][col] && clonedGrid[row-1][col].value === 0  && !zeroesObj[`${row-1}-${col}`]){
-                    revealSquare(row-1, col)
-                }
-                if(clonedGrid[row-1] && clonedGrid[row-1][col-1] && clonedGrid[row-1][col-1].value === 0  && !zeroesObj[`${row-1}-${col-1}`]){
-                    revealSquare(row-1, col-1)
-                }
-                if(clonedGrid[row] && clonedGrid[row][col-1] && clonedGrid[row][col-1].value === 0  && !zeroesObj[`${row}-${col-1}`]){
-                    revealSquare(row, col-1)
-                    //revealedZero(row,col-1)
+            
+            
+                if(clonedGrid[row][col].value === 0){
+                   
+                    if(clonedGrid[row] && clonedGrid[row][col+1]){
+                        clonedGrid[row][col+1].revealed = true;
+                        count--
+                        // if(!nonBombs[`${row}-${col+1}`]){
+                        //     count++
+                        // }  
+                        // nonBombs[`${row}-${col+1}`] = true;
+                    }
+                    if(clonedGrid[row+1] && clonedGrid[row+1][col+1]){
+                        clonedGrid[row+1][col+1].revealed = true;
+                        count--
+                        // if(!nonBombs[`${row+1}-${col+1}`]){
+                        //     count++
+                        // }  
+                        // nonBombs[`${row+1}-${col+1}`] = true;
+                         
+                    }
+                    if(clonedGrid[row+1] && clonedGrid[row+1][col]){
+                        clonedGrid[row+1][col].revealed = true;
+                        count--
+                        // if(!nonBombs[`${row+1}-${col}`]){
+                        //     count++
+                        // }  
+                        // nonBombs[`${row+1}-${col}`] = true;
+                         
+                    }
+                    if(clonedGrid[row+1] && clonedGrid[row+1][col-1]){
+                        clonedGrid[row+1][col-1].revealed = true;
+                        count--
+                        // if(!nonBombs[`${row+1}-${col-1}`]){
+                        //     count++
+                        // }  
+                        // nonBombs[`${row+1}-${col-1}`] = true;
+                         
+                    }
+                    if(clonedGrid[row-1] && clonedGrid[row-1][col+1]){
+                        clonedGrid[row-1][col+1].revealed = true;
+                        count--
+                        // if(!nonBombs[`${row-1}-${col+1}`]){
+                        //     count++
+                        // }  
+                        // nonBombs[`${row-1}-${col+1}`] = true;
+                         
+                    }
+                    if(clonedGrid[row-1] && clonedGrid[row-1][col]){
+                        clonedGrid[row-1][col].revealed = true;
+                        count--
+                        // if(!nonBombs[`${row-1}-${col}`]){
+                        //     count++
+                        // }  
+                        // nonBombs[`${row-1}-${col}`] = true;
+                         
+                    }
+                    if(clonedGrid[row-1] && clonedGrid[row-1][col-1]){
+                        clonedGrid[row-1][col-1].revealed = true;
+                        count--
+                        // if(!nonBombs[`${row-1}-${col-1}`]){
+                        //     count++
+                        // }  
+                        // nonBombs[`${row-1}-${col-1}`] = true;
+                         
+                    }
+                    if(clonedGrid[row] && clonedGrid[row][col-1]){
+                        clonedGrid[row][col-1].revealed = true;
+                        count--
+                        // if(!nonBombs[`${row}-${col-1}`]){
+                        //     count++
+                        // }  
+                        // nonBombs[`${row}-${col-1}`] = true;
+                        
+                    }
+    
+                    zeroesObj[`${row}-${col}`] = true;
+                    
+                    if(clonedGrid[row] && clonedGrid[row][col+1] && clonedGrid[row][col+1].value === 0 && !zeroesObj[`${row}-${col+1}`]){
+                        revealSquare(row, col+1)
+                    }
+                    if(clonedGrid[row+1] && clonedGrid[row+1][col+1] && clonedGrid[row+1][col+1].value === 0 && !zeroesObj[`${row+1}-${col+1}`]){
+                        revealSquare(row+1, col+1)
+                    }
+                    if(clonedGrid[row+1] && clonedGrid[row+1][col] && clonedGrid[row+1][col].value === 0 && !zeroesObj[`${row+1}-${col}`]){
+                        revealSquare(row+1, col)
+                    }
+                    if(clonedGrid[row+1] && clonedGrid[row+1][col-1] && clonedGrid[row+1][col-1].value === 0 && !zeroesObj[`${row+1}-${col-1}`]){
+                        revealSquare(row+1, col-1)
+                    }
+                    if(clonedGrid[row-1] && clonedGrid[row-1][col+1] && clonedGrid[row-1][col+1].value === 0  && !zeroesObj[`${row-1}-${col+1}`]){
+                        revealSquare(row-1, col+1)
+                    }
+                    if(clonedGrid[row-1] && clonedGrid[row-1][col] && clonedGrid[row-1][col].value === 0  && !zeroesObj[`${row-1}-${col}`]){
+                        revealSquare(row-1, col)
+                    }
+                    if(clonedGrid[row-1] && clonedGrid[row-1][col-1] && clonedGrid[row-1][col-1].value === 0  && !zeroesObj[`${row-1}-${col-1}`]){
+                        revealSquare(row-1, col-1)
+                    }
+                    if(clonedGrid[row] && clonedGrid[row][col-1] && clonedGrid[row][col-1].value === 0  && !zeroesObj[`${row}-${col-1}`]){
+                        revealSquare(row, col-1)
+                        //revealedZero(row,col-1)
+                        
+                    }
                     
                 }
-                
-            }
-            clonedGrid[row][col].revealed = true;
-            setNonMines(nonMines-1)  
-        
-            if(clonedGrid[row][col].value === 'X'){
-                alert('you died')
-            }
-            // if(clonedGrid[row][col].value === 0){
-                
-            // }
-            setGrid(clonedGrid);
-            console.log('mines', mines);
-            console.log('nonmines', nonMines)
+                if(clonedGrid[row][col].value !== 0 && clonedGrid[row][col].value !== 'X'){
+                    clonedGrid[row][col].revealed = true;
+                    count--
+                    // if(!nonBombs[`${row}-${col}`]){
+                    //     count++
+                    // }  
+                    // nonBombs[`${row}-${col}`] = true;
+                }
+            
+                if(clonedGrid[row][col].value === 'X'){
+                    alert('you died')
+                }
+                setGrid(clonedGrid);
+            // console.log('mines', mines);
+            // console.log('nonmines', nonMines)
             if(mines === 0 && nonMines === 0){
                 alert('You won!')
             }
+            console.log(count)
+            
+            // if(clonedGrid[row][col].value === 0){
+                
+            // }
+            
             }
             
         revealSquare(row, col)
+        setNonMines(count)
     }
 
     function handleFlag(event, row, col){
@@ -270,7 +324,7 @@ export default function Board() {
     }
 
     const toggleClass = () => {
-        setActive(!isActive)
+        setActive(true)
     }
 
     
@@ -286,7 +340,7 @@ export default function Board() {
                     <div className='board'>
                         {singleRow.map((singleBlock) => {
                             return (
-                                <div className={isActive ? 'rowsBoard': 'not-revealed'} onClick={() => handleClick(singleBlock.row, singleBlock.col), toggleClass} onContextMenu={(event) => handleFlag(event, singleBlock.row, singleBlock.col)}>
+                                <div className={isActive ? 'rowsBoard': 'not-revealed'} onClick={() => handleClick(singleBlock.row, singleBlock.col)} onContextMenu={(event) => handleFlag(event, singleBlock.row, singleBlock.col)}>
                                     {singleBlock.revealed ? singleBlock.value: singleBlock.flagged ? 'F': ''}
                                 </div>
                                 )
