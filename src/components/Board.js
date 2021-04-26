@@ -303,6 +303,7 @@ export default function Board() {
         <div>
             <h2>Bombs {mines}</h2>
             <h2>Non-Bombs {nonMines}</h2>
+            <div className='full-board'>
             {grid.map((singleRow)=> {
                 return (
                     <div className='board'>
@@ -316,6 +317,7 @@ export default function Board() {
                     </div>
                 )
             })}
+            </div>
         </div>
     )
 }
