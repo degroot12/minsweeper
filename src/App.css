@@ -28,7 +28,7 @@
 .not-revealed {
   width:30px;
   height:30px;
-  border: 1px solid black;
+  border: 1px solid rgb(113, 113, 113);
   border-left: 2px white solid;
   border-top: 2px solid white;
   display: flex;
@@ -38,13 +38,38 @@
 }
 
 .full-board {
-  border: 1px solid black;
+  border: 2px solid rgb(113, 113, 113);
   border-right: 2px white solid;
   border-bottom: 2px solid white;
-  
-
 }
 
+.background-app{
+  background-color: rgb(211, 211, 211);
+  padding: 8px;
+  border: 2px solid rgb(113, 113, 113);
+  border-left: 2px white solid;
+  border-top: 2px solid white;
+  
+}
+
+.score {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+h2{
+  background-color: black;
+  color: red;
+  padding: 10px;
+  margin: 8px;
+  width: 30px;
+  height: 30px;
+}
+
+button{
+  margin: 8px;
+}
 /* .revealed {
   background-color: rgb(211, 211, 211);
 } */

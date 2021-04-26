@@ -277,6 +277,11 @@ export default function Board() {
             
         revealSquare(row, col)
         setNonMines(nonMinesCount)
+        console.log('mines', mines)
+        console.log('non-mines', nonMines)
+        if(mines === 0 && nonMinesCount === 0){
+            alert('You won!')
+        }
     }
 
     function handleFlag(event, row, col){
@@ -300,9 +305,14 @@ export default function Board() {
     
 
     return (
-        <div>
-            <h2>Bombs {mines}</h2>
-            <h2>Non-Bombs {nonMines}</h2>
+        <div className='background-app'>
+            <div className='full-board score'>
+                <h2>{mines}</h2>
+                <button onClick={() => window.location.reload()}>Play again</button>
+                <h2>{nonMines}</h2>
+                
+            </div>
+            
             <div className='full-board'>
             {grid.map((singleRow)=> {
                 return (
